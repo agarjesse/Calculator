@@ -1,16 +1,16 @@
 #calcBorder {
   border: black solid 2px;
   border-radius: 10px;
-  margin: 20%;
+  margin: 5%;
   padding: 1%;
   min-width: 200px;
   max-width: 300px;
+  background-color:#f0f2f5;
 }
 
 .rowButtons {
   display:flex;
 }
-
 
 .inputButtons {
     -webkit-border-radius: 5px;
@@ -26,17 +26,19 @@
     flex: 1 1 100%;
     text-align: center;
     font-size: 1.4em;
-  }
+}
 
 .inputButtons:hover {
     background-image: linear-gradient(to top, rgb(192, 192, 192) 16%, rgb(240, 240, 240) 79%); 
-  }
+}
 
 .inputButtons:active {
     background-image: linear-gradient(to bottom, rgb(170, 170, 170) 16%, rgb(170, 170, 170) 79%); 
-  }
+}
+
 #outputArea {
-  border: 1px black solid;
+  border: 2px black solid;
+  background-color: aliceblue;
 }
 
 #outputNumbersContainer {
@@ -49,11 +51,13 @@
 #operationsDisplay {
   display:flex;
   justify-content: end;
+  gap: 3px;
+  margin: 2px 5px 0px 2px;
 }
 
 .operationsDisplayFigures {
   font-size: 0.9em;
   color: grey;
-  margin: 5px;
   height: 5px;
+  width: none;
 }

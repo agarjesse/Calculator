@@ -34,10 +34,6 @@ let previousButton = '';
 
 outputNumbersToZero();
 
-
-
-
-
 makeNumberListeners();
 makeDecimalListener();
 makeNegativeToggleListener();
@@ -47,7 +43,15 @@ makeClearListener();
 makeBackspaceListener();
 makeEqualsListener()
 
+addPlusListener();
+addSubtractListener();
+addMultiplyListener();
+addDivideListener();
 
+addPlusListener()
+addSubtractListener()
+addMultiplyListener()
+addDivideListener()
 
 function operand1IsNaN() {
   if (operand1 != operand1) {
@@ -80,7 +84,6 @@ function previousButtonIsEquals() {
     return false;
   }
 }
-
 
 function makeNegativeToggleListener() {
   negativeToggle.addEventListener('click', function(e) {
@@ -130,11 +133,19 @@ function setOperand2() {
 }
 
 function printOperand1() {
+  if (operand1 != operand1) {
+    operand1Display.textContent = ''
+  } else {
   operand1Display.textContent = `${operand1}`;
+  }
 }
 
 function printOperand2() {
+  if (operand2 != operand2) {
+    operand2Display.textContent = ''
+  } else {
   operand2Display.textContent = `${operand2}`;
+  }
 }
 
 function makeNumberListeners() {
@@ -225,18 +236,26 @@ function equalsExceptions() {
   if (operator == '') {
     setOperand1();
     printOperand1();
-  } else if (previousButtonIsEquals()) { {
+    printEquals();
+    previousButton = 'equals';
+  } else if (!previousButtonIsEquals()) {
+    setOperand2();
+    calculateResult();
+    printResult();
+    printOperand2();
+    printOperand1();
+    printEquals();
+  } else if (previousButtonIsEquals()) {
     if (operand2 != operand2) {
-      setOperand1();
-      //math
-    } else {
       setOperand2();
-      //math
+    } else {
+      setOperand1();
     }
-  }
-  printResult();
-  printOperand2();
-  printOperand1();
+    calculateResult();
+    printResult();
+    printOperand2();
+    printOperand1();
+    printEquals();
   }
 }
       
@@ -248,6 +267,12 @@ function printResult() {
   outputNumbers.textContent = `${result}`;
 }
 
+function printOperator() {
+  if (operator == '') {
+    operator.textContent = '';
+  }
+  operatorDisplay.textContent = operator;
+}
 
 function ignoreLoneZero() {
   if (outputNumbers.textContent == '0') {
@@ -278,4 +303,81 @@ function resetPreviousButton() {
 
 function resetOutputNumbers() {
   outputNumbers.textContent = '0';
+}
+
+function calculateResult() {
+  if (operator == '*') {
+    result = operand1 * operand2;
+  } else if (operator == '-') {
+    result = operand1 - operand2;
+  } else if (operator == '+') {
+    result = operand1 + operand2;
+  } else if (operator == '/') {
+    result = operand1 / operand2;
+  }
+}
+
+function operationExceptions() {
+  if (previousButtonIsOperator()) {
+    printOperator();
+  } else if (previousButtonIsEquals()) {
+    printOperator();
+    operand2 = NaN;
+    printOperand2();
+    setOperand1();
+    printOperand1();
+  } else if (operand1 != operand1) {
+    setOperand1();
+    printOperator();
+    printOperand1();
+  } else { 
+    setOperand2();
+    calculateResult();
+    printResult();
+    setOperand1();
+    printOperator();
+    printOperand1();
+  }
+}
+
+function resetAndPrinOperand2Equals() {
+  operand2 = NaN;
+  printOperand2();
+  equalsDisplay.textContent = '';
+}
+
+function addPlusListener() {
+  plus.addEventListener('click', function(e) {
+    operator = '+';
+    operationExceptions();
+    resetAndPrinOperand2Equals();
+    previousButton = 'operator'
+  } )
+}
+
+function addSubtractListener() {
+  minus.addEventListener('click', function(e) {
+    operator = '-';
+    operationExceptions();
+    resetAndPrinOperand2Equals();
+    previousButton = 'operator'
+  } )
+}
+
+function addMultiplyListener() {
+  multiply.addEventListener('click', function(e) {
+    operator = '*';
+    operationExceptions();
+    resetAndPrinOperand2Equals();
+    previousButton = 'operator'
+  } )
+}
+
+function addDivideListener() {
+  divide.addEventListener('click', function(e) {
+    operator = '/';
+    operationExceptions();
+    resetAndPrinOperand2Equals();
+    previousButton = 'operator'
+  } )
 }
